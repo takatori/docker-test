@@ -2,7 +2,7 @@ FROM centos:6.6
 MAINTAINER "Satoshi Takatori" <takatori@ws.cs.kobe-u.ac.jp>
 
 
-# Tomcat7インストール
+# Tomcat7
 ## リポジトリ・JPackage Projectを使うために必要なソフトのインストール
 RUN yum -y update
 RUN yum -y install yum-priorities
@@ -21,3 +21,11 @@ RUN service tomcat7 start
 # mongoDB
 ## 参照リポジトリの追加
 ## ./etc/yum.repos.d/以下に下記内容の設定ファイル"mongodb.repo"を作成する
+ADD ./conf/mongodb.repo /etc/yum.repos.d/
+## インストール
+RUN yum -y install mongodb-org
+
+RUN chkconfig mongod on
+RUN service mongod start
+
+
